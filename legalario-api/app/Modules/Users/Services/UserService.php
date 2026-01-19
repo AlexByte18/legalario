@@ -10,4 +10,8 @@ class UserService
     {
         return User::paginate($perPage, ['*'], 'page', $page);
     }
+
+    public function create(array $data) {
+        return User::create($data);
+    }
 }
