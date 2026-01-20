@@ -1,4 +1,4 @@
-import type { User } from "@/core/interfaces/user.interface"
+import type { User } from "../../../core/interfaces/user.interface"
 import { CardStackPlusIcon, MagnifyingGlassIcon } from "@radix-ui/react-icons"
 import { Avatar, Box, Button, Card, Flex, Table, TextField } from "@radix-ui/themes"
 import { NavLink } from "react-router"
