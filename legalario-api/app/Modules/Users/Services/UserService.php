@@ -6,9 +6,18 @@ use App\Models\User;
 
 class UserService
 {
-    public function getAll($page = 1, $perPage = 15 )
+    public function getAll($page = 1, $perPage = 50, $search = null )
     {
-        return User::paginate($perPage, ['*'], 'page', $page);
+        $query = User::query();
+
+        if ($search) {
+            $query->where(function($q) use ($search) {
+                $q->where('name', 'like', '%' . $search . '%')
+                  ->orWhere('email', 'like', '%' . $search . '%');
+            });
+        }
+
+        return $query->paginate($perPage, ['*'], 'page', $page);
     }
 
     public function create(array $data) {

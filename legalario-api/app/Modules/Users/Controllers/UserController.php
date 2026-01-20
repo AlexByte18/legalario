@@ -16,7 +16,8 @@ class UserController extends Controller
 
     public function index()
     {
-        $users = $this->userService->getAll();
+        $search = request()->query('search');
+        $users = $this->userService->getAll(search: $search);
         return new UserCollection($users);
     }
 
