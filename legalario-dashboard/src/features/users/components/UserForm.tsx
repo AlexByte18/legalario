@@ -51,7 +51,7 @@ export const UserForm = () => {
           }
         },
         onSuccess: () => {
-          navigate('/users');
+          navigate('/');
         }
       });
     }

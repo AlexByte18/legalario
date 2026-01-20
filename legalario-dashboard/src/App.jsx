@@ -19,8 +19,8 @@ function App() {
             accentColor="blue"
           >
             <Routes>
-              <Route path="/users" element={<UsersPage />} />
-              <Route path="users/new" element={<UserPage />} />
+              <Route path="/" element={<UsersPage />} />
+              <Route path="/users/new" element={<UserPage />} />
             </Routes>
           </Theme>
         </BrowserRouter>

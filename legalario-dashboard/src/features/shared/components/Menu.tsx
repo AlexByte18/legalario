@@ -8,7 +8,7 @@ export const Menu = () => {
   return (
     <Flex direction="column" gap="3" pt="9" align="stretch" >
         <Button size="4" onClick={() => {
-          navigate('/users');
+          navigate('/');
         }}> 
           <CubeIcon />
           <Text>Users</Text>
@@ -17,7 +17,12 @@ export const Menu = () => {
           <Flex direction="column" gap="2" p="4">
             <Heading align="center">La legaltech #1 en México.</Heading>
             <Text align="center">El software para hacer flujos legales ágiles y fáciles.</Text>
-            <Button mt="5">Learn more</Button>
+            <Button 
+              mt="5" 
+              onClick={() => window.open('https://www.legalario.com/home', '_blank')}
+            >
+              Learn more
+            </Button>
           </Flex>
         </Card>
     </Flex>

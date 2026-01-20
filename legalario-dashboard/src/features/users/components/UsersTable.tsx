@@ -39,7 +39,7 @@ export const UsersTable = ({ users, onSearch }: Props) => {
         <NavLink to="/users/new">
           <Button size="3">
             <CardStackPlusIcon />
-            Agregar nuevo usuario
+            Create new user
           </Button>
         </NavLink>
         </Flex>
@@ -47,8 +47,8 @@ export const UsersTable = ({ users, onSearch }: Props) => {
         <Table.Header>
           <Table.Row>
             <Table.ColumnHeaderCell>Id</Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell>Email</Table.ColumnHeaderCell>
             <Table.ColumnHeaderCell>Name</Table.ColumnHeaderCell>
+            <Table.ColumnHeaderCell>Email</Table.ColumnHeaderCell>
             <Table.ColumnHeaderCell>Age</Table.ColumnHeaderCell>
             <Table.ColumnHeaderCell>Country</Table.ColumnHeaderCell>
           </Table.Row>
