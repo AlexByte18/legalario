@@ -1,20 +1,41 @@
 import type { User } from "@/core/interfaces/user.interface"
-import { CardStackPlusIcon } from "@radix-ui/react-icons"
-import { Avatar, Box, Button, Card, Flex, Heading, Table } from "@radix-ui/themes"
+import { CardStackPlusIcon, MagnifyingGlassIcon } from "@radix-ui/react-icons"
+import { Avatar, Box, Button, Card, Flex, Table, TextField } from "@radix-ui/themes"
 import { NavLink } from "react-router"
+import { useState, useEffect } from "react"
 
 interface Props {
   users: User[]
+  onSearch: (search: string) => void
 }
 
-export const UsersTable = ({ users }: Props) => {
+export const UsersTable = ({ users, onSearch }: Props) => {
+  const [searchTerm, setSearchTerm] = useState('')
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      onSearch(searchTerm)
+    }, 500)
+
+    return () => clearTimeout(timer)
+  }, [searchTerm, onSearch])
 
   return (
     <Card>
       <Box p="5" width="full">
         <Flex justify="between" align="center" mb="5">
 
-        <Heading>Users</Heading>
+        <TextField.Root 
+          placeholder="Search by name or email" 
+          size="3" 
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        >
+          <TextField.Slot>
+            <MagnifyingGlassIcon height="16" width="16" />
+          </TextField.Slot>
+        </TextField.Root>
+
         <NavLink to="/users/new">
           <Button size="3">
             <CardStackPlusIcon />
@@ -36,7 +57,7 @@ export const UsersTable = ({ users }: Props) => {
         <Table.Body>
           {
             users?.map((user: User) => (
-              <Table.Row>
+              <Table.Row key={user.id}>
                 <Table.RowHeaderCell>
                   {user.id}
                 </Table.RowHeaderCell>

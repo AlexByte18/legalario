@@ -3,11 +3,18 @@ import { usersApi } from '../../../core/api/users-api';
 import type { User } from './../../../core/interfaces/user.interface';
 import { isAxiosError } from "axios";
 
-export const getUsers = async (limit = 15) => {
-  console.log("getUsers ~ limit:", limit)
+interface GetUsersParams {
+  limit?: number;
+  search?: string;
+}
+
+export const getUsers = async ({ limit = 15, search }: GetUsersParams = {}) => {
   try { 
     const { data } = await usersApi.get<User[]>('/users', {
-      // params: { limit, offset }
+      params: { 
+        limit,
+        search: search || undefined
+      }
     });
 
     console.log("getUsers ~ data:", data)
