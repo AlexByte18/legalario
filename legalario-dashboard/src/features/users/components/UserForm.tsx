@@ -1,8 +1,9 @@
 import { useForm } from '../../shared/hooks/useForm';
-import { Box, Button, Flex, TextField } from '@radix-ui/themes';
+import { Box, Button, Flex, TextField, Text } from '@radix-ui/themes';
 import type { FormEvent } from 'react';
 import { useUser } from '../hooks/useUser';
 import { useNavigate } from 'react-router';
+import { useState } from 'react';
 
 interface FormProps {
   id: string;
@@ -15,6 +16,7 @@ interface FormProps {
 
 export const UserForm = () => {
   const navigate = useNavigate();
+  const [errors, setErrors] = useState<Record<string, string[]>>({});
   
   const { 
     name,
@@ -36,13 +38,17 @@ export const UserForm = () => {
   const { userMutation } = useUser()
 
   const onSubmit = (event: FormEvent<HTMLFormElement> ) => {
+      setErrors({});
       event.preventDefault();
       userMutation.mutate({
         ...formData,
         age: Number(formData.age)
       }, {
-        onError: () => {
+        onError: (error: any) => {
           console.error("Error creating new user");
+          if (error.errors) {
+            setErrors(error.errors);
+          }
         },
         onSuccess: () => {
           navigate('/users');
@@ -54,41 +60,76 @@ export const UserForm = () => {
     <Box width="full" p="5">
       <form onSubmit={onSubmit}>
         <Flex direction="column" gap="3">
-          <TextField.Root
-            name="name"
-            type="text"
-            placeholder="Name"
-            value={name}
-            onChange={onChange}
-          />
-          <TextField.Root
-            name="email"
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={onChange}
-          />
-          <TextField.Root
-            name="password"
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={onChange}
-          />
-          <TextField.Root
-            name="age"
-            type="text"
-            placeholder="Age"
-            value={age}
-            onChange={onChange}
-          />
-          <TextField.Root
-            name="country"
-            type="text"
-            placeholder="Country"
-            value={country}
-            onChange={onChange}
-          />
+          <Flex direction="column" >
+            <TextField.Root
+              name="name"
+              type="text"
+              placeholder="Name"
+              value={name}
+              onChange={onChange}
+            />
+            {errors.name && (
+              <Text size="2" color="red" mt="1" align="left">
+                {errors.name[0]}
+              </Text>
+            )}
+          </Flex>
+          <Flex direction="column">
+            <TextField.Root
+              name="email"
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={onChange}
+            />
+            {errors.email && (
+              <Text size="2" color="red" mt="1" align="left">
+                {errors.email[0]}
+              </Text>
+            )}
+          </Flex>
+          <Flex direction="column">
+            <TextField.Root
+              name="password"
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={onChange}
+            />
+            {errors.password && (
+              <Text size="2" color="red" mt="1" align="left">
+                {errors.password[0]}
+              </Text>
+            )}
+          </Flex>
+          <Flex direction="column">
+            <TextField.Root
+              name="age"
+              type="text"
+              placeholder="Age"
+              value={age}
+              onChange={onChange}
+            />
+            {errors.age && (
+              <Text size="2" color="red" mt="1" align="left">
+                {errors.age[0]}
+              </Text>
+            )}
+          </Flex>
+          <Flex direction="column">
+            <TextField.Root
+              name="country"
+              type="text"
+              placeholder="Country"
+              value={country}
+              onChange={onChange}
+            />
+            {errors.country && (
+              <Text size="2" color="red" mt="1" align="left">
+                {errors.country[0]}
+              </Text>
+            )}
+          </Flex>
         </Flex>
         <Button type="submit" mt="5">Save user</Button>
       </form>

@@ -1,4 +1,5 @@
 
+import { Box } from '@radix-ui/themes';
 import PublicLayout from '../shared/PublicLayout'
 import { UsersTable } from './components/UsersTable'
 import { useUsers } from './hooks/useUsers';
@@ -8,9 +9,10 @@ const UsersPage = () => {
 
   return (
     <PublicLayout >
-      <h1>Users Page</h1>
-
-      <UsersTable users={usersQuery.data?.data ?? []} />
+      <Box p="5">
+        <h1>Users page</h1>
+        <UsersTable users={usersQuery.data?.data ?? []} />
+      </Box>
     </PublicLayout>
   )
 }

@@ -11,7 +11,7 @@ export const UsersTable = ({ users }: Props) => {
 
   return (
     <Card>
-      <Box p="5">
+      <Box p="5" width="full">
         <Flex justify="between" align="center" mb="5">
 
         <Heading>Users</Heading>
@@ -22,7 +22,7 @@ export const UsersTable = ({ users }: Props) => {
           </Button>
         </NavLink>
         </Flex>
-      <Table.Root>
+      <Table.Root >
         <Table.Header>
           <Table.Row>
             <Table.ColumnHeaderCell>Id</Table.ColumnHeaderCell>

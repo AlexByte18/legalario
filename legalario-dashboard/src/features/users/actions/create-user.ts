@@ -17,11 +17,14 @@ export const createUser = async (data: User) => {
         message: axiosError.message,
         data: axiosError.response?.data,
       });
+      if (axiosError.response?.status === 422 && axiosError.response?.data) {
+        throw axiosError.response.data;
+      }
     } else {
       console.error("Non-Axios error:", error);
     }
 
     const message = isAxiosError(error) ? error.message : String(error);
-    throw new Error(`Error fetching products: ${message}`);
+    throw new Error(`Error creating user: ${message}`);
   }
 };
